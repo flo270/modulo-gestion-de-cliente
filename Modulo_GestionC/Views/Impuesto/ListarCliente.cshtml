@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Modulo_GestionC.Models.Cliente>
+
+<select class=" form-control" id="ClientePerteneciente" name="ClientePerteneciente">
+
+
+    @foreach (var item in Model)
+    {
+
+        <option value="@item.IdCliente"> @item.NombreContribuyente,
+    @item.CUIT @item.TipoCliente  @item.RegimenImpositivoPerteneciente</option>
+
+    }
+
+</select>

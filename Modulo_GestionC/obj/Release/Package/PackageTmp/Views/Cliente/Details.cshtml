@@ -1,0 +1,84 @@
+﻿@model Modulo_GestionC.Models.Cliente
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalle</h2>
+
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreContribuyente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreContribuyente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CUIT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CUIT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaRegistro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaRegistro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegimenImpositivoPerteneciente)
+        </dt>
+
+        <dd>
+            @Modulo_GestionC.Controllers.ClienteController.RI(Model.RegimenImpositivoPerteneciente)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdCliente}) |
+    @Html.ActionLink("volver a la lista", "Index")
+</p>

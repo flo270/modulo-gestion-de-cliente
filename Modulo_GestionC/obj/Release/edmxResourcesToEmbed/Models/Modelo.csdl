@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ModuloGestionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreContribuyente" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CUIT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TipoCliente" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+    <Property Name="RegimenImpositivoPerteneciente" Type="Int32" />
+    <NavigationProperty Name="RegimenImpositivo" Relationship="Self.FK_Cliente_RegimenImpositivo" FromRole="Cliente" ToRole="RegimenImpositivo" />
+    <NavigationProperty Name="Impuesto" Relationship="Self.FK_Impuesto_Cliente" FromRole="Cliente" ToRole="Impuesto" />
+  </EntityType>
+  <EntityType Name="Impuesto">
+    <Key>
+      <PropertyRef Name="IdImp" />
+    </Key>
+    <Property Name="IdImp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreImpuesto" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="FechaVencimiento" Type="DateTime" Precision="3" />
+    <Property Name="Monto" Type="Double" />
+    <Property Name="FechaPago" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+    <Property Name="TipoImpuesto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ClientePerteneciente" Type="Int32" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK_Impuesto_Cliente" FromRole="Impuesto" ToRole="Cliente" />
+  </EntityType>
+  <EntityType Name="RegimenImpositivo">
+    <Key>
+      <PropertyRef Name="IdRI" />
+    </Key>
+    <Property Name="IdRI" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreRegimenImpositivo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Categoria" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="FechaRgistro" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_RegimenImpositivo" FromRole="RegimenImpositivo" ToRole="Cliente" />
+  </EntityType>
+  <Association Name="FK_Cliente_RegimenImpositivo">
+    <End Role="RegimenImpositivo" Type="Self.RegimenImpositivo" Multiplicity="0..1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RegimenImpositivo">
+        <PropertyRef Name="IdRI" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="RegimenImpositivoPerteneciente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Impuesto_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="Impuesto" Type="Self.Impuesto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="IdCliente" />
+      </Principal>
+      <Dependent Role="Impuesto">
+        <PropertyRef Name="ClientePerteneciente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ContextoModuloG" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+    <EntitySet Name="Impuesto" EntityType="Self.Impuesto" />
+    <EntitySet Name="RegimenImpositivo" EntityType="Self.RegimenImpositivo" />
+    <AssociationSet Name="FK_Cliente_RegimenImpositivo" Association="Self.FK_Cliente_RegimenImpositivo">
+      <End Role="RegimenImpositivo" EntitySet="RegimenImpositivo" />
+      <End Role="Cliente" EntitySet="Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Impuesto_Cliente" Association="Self.FK_Impuesto_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Impuesto" EntitySet="Impuesto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

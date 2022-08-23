@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Modulo_GestionC.Models.Cliente>
+
+@{
+    ViewBag.Title = "ShowAll";
+}
+
+<h2>Show All</h2>
+@using (Html.BeginForm())
+{
+    <p>
+        Buscar por cliente: @Html.TextBox("SearchString")
+        <input type="submit" value="Buscar" class="btn btn-success" />
+    </p>
+}
+<p>
+    @Html.ActionLink("Ir a Clientes", "Index","Cliente")
+</p>
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.NombreContribuyente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CUIT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaRegistro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegimenImpositivoPerteneciente)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreContribuyente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CUIT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaRegistro)
+            </td>
+            <td>
+                @Modulo_GestionC.Controllers.ClienteController.RI(item.RegimenImpositivoPerteneciente)
+            </td>
+            
+        </tr>
+    }
+
+</table>
+<p>
+    @Html.Action("Impuesto")
+</p>

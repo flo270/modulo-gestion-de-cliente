@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ModuloGestionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreContribuyente" Type="varchar" MaxLength="255" />
+          <Property Name="CUIT" Type="varchar" MaxLength="255" />
+          <Property Name="Direccion" Type="varchar(max)" />
+          <Property Name="Telefono" Type="varchar" MaxLength="255" />
+          <Property Name="Mail" Type="varchar(max)" />
+          <Property Name="TipoCliente" Type="varchar" MaxLength="255" />
+          <Property Name="FechaRegistro" Type="datetime" />
+          <Property Name="RegimenImpositivoPerteneciente" Type="int" />
+        </EntityType>
+        <EntityType Name="Impuesto">
+          <Key>
+            <PropertyRef Name="IdImp" />
+          </Key>
+          <Property Name="IdImp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreImpuesto" Type="varchar" MaxLength="250" />
+          <Property Name="FechaVencimiento" Type="datetime" />
+          <Property Name="Monto" Type="float" />
+          <Property Name="FechaPago" Type="datetime" Nullable="false" />
+          <Property Name="FechaRegistro" Type="datetime" />
+          <Property Name="TipoImpuesto" Type="varchar" MaxLength="255" />
+          <Property Name="ClientePerteneciente" Type="int" />
+        </EntityType>
+        <EntityType Name="RegimenImpositivo">
+          <Key>
+            <PropertyRef Name="IdRI" />
+          </Key>
+          <Property Name="IdRI" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreRegimenImpositivo" Type="varchar" MaxLength="250" />
+          <Property Name="Categoria" Type="varchar" MaxLength="250" />
+          <Property Name="FechaRgistro" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Cliente_RegimenImpositivo">
+          <End Role="RegimenImpositivo" Type="Self.RegimenImpositivo" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegimenImpositivo">
+              <PropertyRef Name="IdRI" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="RegimenImpositivoPerteneciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Impuesto_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Impuesto" Type="Self.Impuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Impuesto">
+              <PropertyRef Name="ClientePerteneciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModuloGestionModelStoreContainer">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Impuesto" EntityType="Self.Impuesto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegimenImpositivo" EntityType="Self.RegimenImpositivo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cliente_RegimenImpositivo" Association="Self.FK_Cliente_RegimenImpositivo">
+            <End Role="RegimenImpositivo" EntitySet="RegimenImpositivo" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Impuesto_Cliente" Association="Self.FK_Impuesto_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Impuesto" EntitySet="Impuesto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ModuloGestionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreContribuyente" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CUIT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TipoCliente" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <Property Name="RegimenImpositivoPerteneciente" Type="Int32" />
+          <NavigationProperty Name="RegimenImpositivo" Relationship="Self.FK_Cliente_RegimenImpositivo" FromRole="Cliente" ToRole="RegimenImpositivo" />
+          <NavigationProperty Name="Impuesto" Relationship="Self.FK_Impuesto_Cliente" FromRole="Cliente" ToRole="Impuesto" />
+        </EntityType>
+        <EntityType Name="Impuesto">
+          <Key>
+            <PropertyRef Name="IdImp" />
+          </Key>
+          <Property Name="IdImp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreImpuesto" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FechaVencimiento" Type="DateTime" Precision="3" />
+          <Property Name="Monto" Type="Double" />
+          <Property Name="FechaPago" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <Property Name="TipoImpuesto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ClientePerteneciente" Type="Int32" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Impuesto_Cliente" FromRole="Impuesto" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="RegimenImpositivo">
+          <Key>
+            <PropertyRef Name="IdRI" />
+          </Key>
+          <Property Name="IdRI" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreRegimenImpositivo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Categoria" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRgistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_RegimenImpositivo" FromRole="RegimenImpositivo" ToRole="Cliente" />
+        </EntityType>
+        <Association Name="FK_Cliente_RegimenImpositivo">
+          <End Role="RegimenImpositivo" Type="Self.RegimenImpositivo" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegimenImpositivo">
+              <PropertyRef Name="IdRI" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="RegimenImpositivoPerteneciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Impuesto_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Impuesto" Type="Self.Impuesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Impuesto">
+              <PropertyRef Name="ClientePerteneciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ContextoModuloG" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Impuesto" EntityType="Self.Impuesto" />
+          <EntitySet Name="RegimenImpositivo" EntityType="Self.RegimenImpositivo" />
+          <AssociationSet Name="FK_Cliente_RegimenImpositivo" Association="Self.FK_Cliente_RegimenImpositivo">
+            <End Role="RegimenImpositivo" EntitySet="RegimenImpositivo" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Impuesto_Cliente" Association="Self.FK_Impuesto_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Impuesto" EntitySet="Impuesto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModuloGestionModelStoreContainer" CdmEntityContainer="ContextoModuloG">
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="ModuloGestionModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="NombreContribuyente" ColumnName="NombreContribuyente" />
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="TipoCliente" ColumnName="TipoCliente" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="RegimenImpositivoPerteneciente" ColumnName="RegimenImpositivoPerteneciente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Impuesto">
+            <EntityTypeMapping TypeName="ModuloGestionModel.Impuesto">
+              <MappingFragment StoreEntitySet="Impuesto">
+                <ScalarProperty Name="IdImp" ColumnName="IdImp" />
+                <ScalarProperty Name="NombreImpuesto" ColumnName="NombreImpuesto" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="FechaPago" ColumnName="FechaPago" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="TipoImpuesto" ColumnName="TipoImpuesto" />
+                <ScalarProperty Name="ClientePerteneciente" ColumnName="ClientePerteneciente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegimenImpositivo">
+            <EntityTypeMapping TypeName="ModuloGestionModel.RegimenImpositivo">
+              <MappingFragment StoreEntitySet="RegimenImpositivo">
+                <ScalarProperty Name="IdRI" ColumnName="IdRI" />
+                <ScalarProperty Name="NombreRegimenImpositivo" ColumnName="NombreRegimenImpositivo" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="FechaRgistro" ColumnName="FechaRgistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

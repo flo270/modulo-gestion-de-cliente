@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Modulo_GestionC.Models.Impuesto>
+
+<p>
+    @Html.ActionLink("Ir a Impuesto", "Index","Impuesto")
+</p>
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.NombreImpuesto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaVencimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Monto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaPago)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaRegistro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoImpuesto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientePerteneciente)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreImpuesto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaVencimiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Monto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaPago)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaRegistro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoImpuesto)
+        </td>
+        <td>
+            @Modulo_GestionC.Controllers.ImpuestoController.Cliente(item.ClientePerteneciente)
+        </td>
+      
+    </tr>
+}
+
+</table>

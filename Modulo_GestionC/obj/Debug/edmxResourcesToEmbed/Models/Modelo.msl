@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModuloGestionModelStoreContainer" CdmEntityContainer="ContextoModuloG">
+    <EntitySetMapping Name="Cliente">
+      <EntityTypeMapping TypeName="ModuloGestionModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+          <ScalarProperty Name="NombreContribuyente" ColumnName="NombreContribuyente" />
+          <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Mail" ColumnName="Mail" />
+          <ScalarProperty Name="TipoCliente" ColumnName="TipoCliente" />
+          <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+          <ScalarProperty Name="RegimenImpositivoPerteneciente" ColumnName="RegimenImpositivoPerteneciente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Impuesto">
+      <EntityTypeMapping TypeName="ModuloGestionModel.Impuesto">
+        <MappingFragment StoreEntitySet="Impuesto">
+          <ScalarProperty Name="IdImp" ColumnName="IdImp" />
+          <ScalarProperty Name="NombreImpuesto" ColumnName="NombreImpuesto" />
+          <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+          <ScalarProperty Name="Monto" ColumnName="Monto" />
+          <ScalarProperty Name="FechaPago" ColumnName="FechaPago" />
+          <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+          <ScalarProperty Name="TipoImpuesto" ColumnName="TipoImpuesto" />
+          <ScalarProperty Name="ClientePerteneciente" ColumnName="ClientePerteneciente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RegimenImpositivo">
+      <EntityTypeMapping TypeName="ModuloGestionModel.RegimenImpositivo">
+        <MappingFragment StoreEntitySet="RegimenImpositivo">
+          <ScalarProperty Name="IdRI" ColumnName="IdRI" />
+          <ScalarProperty Name="NombreRegimenImpositivo" ColumnName="NombreRegimenImpositivo" />
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+          <ScalarProperty Name="FechaRgistro" ColumnName="FechaRgistro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

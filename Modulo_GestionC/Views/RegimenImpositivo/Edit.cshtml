@@ -1,0 +1,67 @@
+﻿@model Modulo_GestionC.Models.RegimenImpositivo
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>RegimenImpositivo</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NombreRegimenImpositivo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select class="form-control" id="NombreRegimenImpositivo" name="NombreRegimenImpositivo">
+                <option>Monotributo</option>
+                <option>Responsable Inscripto</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.NombreRegimenImpositivo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Categoria, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select class="form-control" id="Categoria" name="Categoria">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+                <option>E</option>
+                <option>F</option>
+                <option>G</option>
+                <option>H</option>
+                <option>I</option>
+                <option>J</option>
+                <option>K</option>
+                <option>1° INMUEBLE</option>
+                <option>2°RENTAS CAPITAL</option>
+                <option>3° ACTIVIDAD EMPRESARIAL</option>
+                <option>4° TRABAJO</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Categoria, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Volver a la lista", "Index")
+</div>

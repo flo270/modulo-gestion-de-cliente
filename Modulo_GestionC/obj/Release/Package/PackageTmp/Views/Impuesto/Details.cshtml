@@ -1,0 +1,76 @@
+﻿@model Modulo_GestionC.Models.Impuesto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalle</h2>
+
+<div>
+    <h4>Impuesto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+      
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreImpuesto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreImpuesto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaVencimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaVencimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Monto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Monto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaPago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaPago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaRegistro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaRegistro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoImpuesto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoImpuesto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClientePerteneciente)
+        </dt>
+
+        <dd>
+            @Modulo_GestionC.Controllers.ImpuestoController.Cliente(Model.ClientePerteneciente)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdImp }) |
+    @Html.ActionLink("vlver a la lista", "Index")
+</p>

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Modulo_GestionC.Models.RegimenImpositivo>
+
+<select class=" form-control" id="RegimenImpositivoPerteneciente" name="RegimenImpositivoPerteneciente">
+
+
+    @foreach (var item in Model)
+    {
+
+        <option value="@item.IdRI"> @item.NombreRegimenImpositivo @item.Categoria </option>
+
+    }
+
+</select>

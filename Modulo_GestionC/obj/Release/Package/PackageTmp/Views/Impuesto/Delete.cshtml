@@ -1,0 +1,82 @@
+﻿@model Modulo_GestionC.Models.Impuesto
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Borrar</h2>
+
+<h3>Esta seguro de eliminar el registro?</h3>
+<div>
+    <h4>Impuesto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+       
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreImpuesto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreImpuesto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaVencimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaVencimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Monto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Monto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaPago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaPago)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaRegistro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaRegistro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoImpuesto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoImpuesto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClientePerteneciente)
+        </dt>
+
+        <dd>
+            @Modulo_GestionC.Controllers.ImpuestoController.Cliente(Model.ClientePerteneciente)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Borrar" class="btn btn-warning" /> |
+            @Html.ActionLink("Volver a la lista", "Index")
+        </div>
+    }
+</div>

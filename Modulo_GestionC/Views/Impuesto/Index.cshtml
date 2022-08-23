@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Modulo_GestionC.Models.Impuesto>
+
+@{
+    ViewBag.Title = "Impuesto";
+}
+
+<h2>Impuesto</h2>
+@using (Html.BeginForm())
+{
+    <p>
+        Buscar Impuesto: @Html.TextBox("SearchString")
+        <input type="submit" value="Buscar" class="btn btn-success" />
+    </p>
+}
+
+<p>
+    @Html.ActionLink("Crear nuevo", "Crear")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.NombreImpuesto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaVencimiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Monto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaPago)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaRegistro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoImpuesto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientePerteneciente)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreImpuesto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaVencimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Monto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaPago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaRegistro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoImpuesto)
+            </td>
+            <td>
+                @Modulo_GestionC.Controllers.ImpuestoController.Cliente(item.ClientePerteneciente)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.IdImp }) |
+                @Html.ActionLink("Detallar", "Details", new { id = item.IdImp }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdImp })
+            </td>
+        </tr>
+    }
+
+</table>

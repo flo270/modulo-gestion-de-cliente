@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ModuloGestionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreContribuyente" Type="varchar" MaxLength="255" />
+    <Property Name="CUIT" Type="varchar" MaxLength="255" />
+    <Property Name="Direccion" Type="varchar(max)" />
+    <Property Name="Telefono" Type="varchar" MaxLength="255" />
+    <Property Name="Mail" Type="varchar(max)" />
+    <Property Name="TipoCliente" Type="varchar" MaxLength="255" />
+    <Property Name="FechaRegistro" Type="datetime" />
+    <Property Name="RegimenImpositivoPerteneciente" Type="int" />
+  </EntityType>
+  <EntityType Name="Impuesto">
+    <Key>
+      <PropertyRef Name="IdImp" />
+    </Key>
+    <Property Name="IdImp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreImpuesto" Type="varchar" MaxLength="250" />
+    <Property Name="FechaVencimiento" Type="datetime" />
+    <Property Name="Monto" Type="float" />
+    <Property Name="FechaPago" Type="datetime" Nullable="false" />
+    <Property Name="FechaRegistro" Type="datetime" />
+    <Property Name="TipoImpuesto" Type="varchar" MaxLength="255" />
+    <Property Name="ClientePerteneciente" Type="int" />
+  </EntityType>
+  <EntityType Name="RegimenImpositivo">
+    <Key>
+      <PropertyRef Name="IdRI" />
+    </Key>
+    <Property Name="IdRI" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreRegimenImpositivo" Type="varchar" MaxLength="250" />
+    <Property Name="Categoria" Type="varchar" MaxLength="250" />
+    <Property Name="FechaRgistro" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_Cliente_RegimenImpositivo">
+    <End Role="RegimenImpositivo" Type="Self.RegimenImpositivo" Multiplicity="0..1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RegimenImpositivo">
+        <PropertyRef Name="IdRI" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="RegimenImpositivoPerteneciente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Impuesto_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="Impuesto" Type="Self.Impuesto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="IdCliente" />
+      </Principal>
+      <Dependent Role="Impuesto">
+        <PropertyRef Name="ClientePerteneciente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModuloGestionModelStoreContainer">
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Impuesto" EntityType="Self.Impuesto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RegimenImpositivo" EntityType="Self.RegimenImpositivo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Cliente_RegimenImpositivo" Association="Self.FK_Cliente_RegimenImpositivo">
+      <End Role="RegimenImpositivo" EntitySet="RegimenImpositivo" />
+      <End Role="Cliente" EntitySet="Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Impuesto_Cliente" Association="Self.FK_Impuesto_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Impuesto" EntitySet="Impuesto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

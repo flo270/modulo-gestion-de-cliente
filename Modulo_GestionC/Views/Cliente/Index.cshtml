@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Modulo_GestionC.Models.Cliente>
+
+@{
+                /**/
+
+                ViewBag.Title = "Cliente";
+}
+
+<h2>Clientes</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Buscar cliente: @Html.TextBox("SearchString")
+        <input type="submit" value="Buscar" class="btn btn-success" />
+    </p>
+}
+
+<p>
+    @Html.ActionLink("Crear nuevo cliente", "Crear")
+</p>
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.ActionLink("Nombre Contribuyente", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CUIT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaRegistro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegimenImpositivoPerteneciente)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    
+    <td>
+        @Html.DisplayFor(modelItem => item.NombreContribuyente)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CUIT)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Direccion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Telefono)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Mail)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TipoCliente)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaRegistro)
+    </td>
+    <td>
+        @Modulo_GestionC.Controllers.ClienteController.RI(item.RegimenImpositivoPerteneciente)
+    </td>
+    <td>
+        @Html.ActionLink("Editar", "Edit", new {  id=item.IdCliente }) |
+        @Html.ActionLink("Detallar", "Details", new { id = item.IdCliente }) |
+        @Html.ActionLink("Eliminar", "Delete", new { id = item.IdCliente })
+    </td>
+</tr>
+}
+
+</table>
